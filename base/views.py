@@ -1,6 +1,6 @@
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from django.db.models import Q
+from django.db.models import Q, Count
 from .models import Room, Message, Topic
 from .forms import RoomForm
 # Create your views here.
@@ -16,13 +16,17 @@ def home(request):
     
     #rooms = Room.objects.all() #all() returns a QuerySet with all the rooms in the database
     topics = Topic.objects.all()
-    room_count = rooms.count()
     #get the number of messages in each room
-    room_messages = {}
-    for room in rooms:
-        room_messages[room.id] = Message.objects.filter(room=room).count() 
 
-    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}
+    room_messages = (Message.objects.values('room').annotate(dcount = Count('room')).order_by())
+
+    print(room_messages)
+   
+
+
+
+
+    context = {'rooms': rooms, 'topics': topics,  'room_messages': room_messages}
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
