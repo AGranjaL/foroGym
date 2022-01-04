@@ -21,6 +21,7 @@
                 </div>
             {% endfor %}
         </div>
+            <h5>{{room_count}} Rooms available</h5>
             <div>
                 <a href="{% url 'createRoom' %}">Create Room</a>
             <div>
@@ -29,6 +30,8 @@
 
                     <div>
                         <h5>{{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
+                        <!--print the number of messages in each rooom found in room_messages[room.id]-->
+                        <!--<h6>{{room_messages[{{room.id}}]}} Messages</h6>-->
                         <a href="{% url 'updateRoom' room.id %}">Edit</a>
                         <a href="{% url 'deleteRoom' room.id %}">Delete</a>
                     </div>

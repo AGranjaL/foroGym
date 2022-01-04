@@ -1,5 +1,9 @@
 <a href="/">
     <h1>LOGO</h1>
 </a>
-
+<form method="GET" action="{% url 'home' %}" class="search-form">
+    <!--get q if search is differnt from '' if not return to home-->
+    <input type="text" name="q" placeholder="Type Topic">
+    <button type="submit">Search</button>
+</form>
 <hr>
