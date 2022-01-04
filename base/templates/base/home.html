@@ -31,13 +31,15 @@
                 {% for room in rooms %}
 
                     <div>
-                        
+                        <h5>{{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a>
                         {% for messages in room_messages %}
-                            {% if messages.room == room.id %}
-                            <h5>{{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a>({{messages.dcount}})</h5>
-                            {%endif%}
-                        {% endfor %}
 
+                            {% if messages.room == room.id %}
+                                ({{messages.dcount}})
+                            {%endif%}
+
+                        {% endfor %}
+                        </h5>
                         
                         <a href="{% url 'updateRoom' room.id %}">Edit</a>
                         <a href="{% url 'deleteRoom' room.id %}">Delete</a>

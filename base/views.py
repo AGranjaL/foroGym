@@ -12,7 +12,7 @@ def home(request):
     rooms = Room.objects.filter(Q(message__topic__name__icontains=q) |
     Q(name__icontains=q) |
     Q(description__icontains=q)) if request.GET.get('q') != None and request.GET.get('q') != '' else Room.objects.all()
-
+    room_count = rooms.count()
     
     #rooms = Room.objects.all() #all() returns a QuerySet with all the rooms in the database
     topics = Topic.objects.all()
@@ -20,13 +20,7 @@ def home(request):
 
     room_messages = (Message.objects.values('room').annotate(dcount = Count('room')).order_by())
 
-    print(room_messages)
-   
-
-
-
-
-    context = {'rooms': rooms, 'topics': topics,  'room_messages': room_messages}
+    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
