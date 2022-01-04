@@ -4,18 +4,20 @@ from .models import Room, Message, Topic
 from .forms import RoomForm
 # Create your views here.
 
-#rooms = [
-#    {'id': '1', 'name': 'CrossFit'},
-#    {'id': '2', 'name': 'Weighlifting'},
-#    {'id': '3', 'name': 'Bodybuilding'},
-#]
-
 def home(request):
-    rooms = Room.objects.all()
-    context = {'rooms': rooms}
+    
+    q = request.GET.get('q')
+    #if q is not None then filter the rooms if they have messages that contain the topic q
+    rooms = Room.objects.filter(message__topic__name__icontains=q) if request.GET.get('q') != None else Room.objects.all()
+
+    
+    #rooms = Room.objects.all() #all() returns a QuerySet with all the rooms in the database
+    topics = Topic.objects.all()
+    context = {'rooms': rooms, 'topics': topics}
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
+
     room = Room.objects.get(id=pk)
     messages = Message.objects.filter(room=room)
     context = {'room': room, 'messages': messages}
@@ -49,3 +51,4 @@ def deleteRoom(request, pk):
         return redirect('home')
     context = {'obj': room}
     return render(request, 'base/delete.html', context)
+

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
+
     
     
     def __str__(self):
@@ -14,7 +15,6 @@ class Room(models.Model):
     #null=True means that the field is optional
     #blank=True means that the field is allowed to be empty
     description = models.TextField(null=True, blank=True) 
-    #participants = 
     updated = models.DateTimeField(auto_now=True) #auto_now=True means that the field is updated every time the object is saved
     created = models.DateTimeField(auto_now_add=True) #auto_now_add=True means that the field is updated only when the object is first created
 
