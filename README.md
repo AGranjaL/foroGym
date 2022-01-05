@@ -1,2 +1,3 @@
 # foroGym
 Web application using Django to set up a sport social media with: challenges, goals, PRs...
+Everything to keep you motivated.
