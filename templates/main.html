@@ -10,7 +10,15 @@
     </head>
     <body>
         {% include 'navbar.html'%}
-        
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <span><li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></span>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+
         {% block content %}
         
         {% endblock %}
