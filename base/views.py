@@ -90,7 +90,7 @@ def loginPage(request):
 
     context = {'page': page}
     return render(request, 'base/login_registration.html', context)
-def register(request):
+def registerUser(request):
     page = 'register'
     context = {'page': page}
     return render(request, 'base/login_registration.html', context)
